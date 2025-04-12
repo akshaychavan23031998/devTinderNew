@@ -17,7 +17,7 @@ const Login = () => {
         emailId,
         password,
       }, {withCredentials: true});
-      console.log(res.data);
+      console.log("Res from handleLogin ==>> ",res.data);
       dispatch(addUser(res.data));
       return navigate("/feed");
     } catch (e) {
