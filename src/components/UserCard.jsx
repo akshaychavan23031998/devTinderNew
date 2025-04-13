@@ -5,6 +5,13 @@ const UserCard = ({ user }) => {
 
   return (
     <div className="card bg-base-300 w-96 shadow-sm">
+      <figure className="w-full h-64 overflow-hidden">
+        <img
+          src={user.photo}
+          alt={`${user.firstName} ${user.lastName}`}
+          className="w-full h-full object-cover object-top"
+        />
+      </figure>
       <div className="card-body">
         <h2 className="card-title">
           {user.firstName} {user.lastName}
