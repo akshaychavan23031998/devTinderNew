@@ -28,9 +28,18 @@ const NavBar = () => {
 
   return (
     <div className="navbar bg-base-300 shadow-sm">
-      <div className="flex-1">
-        <Link to={"/feed"} className="btn btn-ghost text-xl">Dev_Tinder 👩‍💻🚀</Link>
-      </div>
+    <div className="flex-1">
+    {/* Conditional rendering based on the presence of the User object */}
+      {User ? (
+        <Link to="/feed" className="btn btn-ghost text-xl">
+          Dev_Tinder 👩‍💻🚀
+        </Link>
+      ) : (
+        <Link to="/login" className="btn btn-ghost text-xl">
+          Dev_Tinder 👩‍💻🚀
+        </Link>
+      )}
+    </div>
       {User && <div className="flex gap-2 mx-5">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
