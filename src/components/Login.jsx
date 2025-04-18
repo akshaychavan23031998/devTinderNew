@@ -8,6 +8,11 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("akshay@gmail.com");
   const [password, setPassword] = useState("akshay15#OR");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const [isLogIn, setIsLogIn] = useState(true);
+
   const [errorMsg, setErrorMsg] = useState("");
 
   const dispatch = useDispatch();
@@ -39,13 +44,39 @@ const Login = () => {
     <div className="flex justify-center mt-[5%]">
       <div className="card bg-base-300 w-96 shadow-sm">
         <div className="card-body">
-          <h2 className="card-title flex justify-center">Login</h2>
+          <h2 className="card-title flex justify-center">
+            {isLogIn ? "Login" : "Sign Up"}
+          </h2>
 
           {/* Error message from API */}
           {errorMsg && (
             <div className="text-red-500 text-sm text-center mb-2">
               {errorMsg}
             </div>
+          )}
+
+          {/*For First name*/}
+          {!isLogIn && (
+            <>
+              <fieldset className="fieldset">
+                <input
+                  type="text"
+                  value={firstName}
+                  className="input"
+                  placeholder="Enter You First Name"
+                />
+              </fieldset>
+
+              {/*For last name*/}
+              <fieldset className="fieldset">
+                <input
+                  type="text"
+                  value={lastName}
+                  className="input"
+                  placeholder="Enter You Last Name"
+                />
+              </fieldset>
+            </>
           )}
 
           {/* Email Input */}
@@ -114,9 +145,15 @@ const Login = () => {
           {/* Button */}
           <div className="card-actions justify-center mt-3">
             <button className="btn btn-primary w-full" onClick={handleLogin}>
-              Login
+              {isLogIn ? "Login" : "Sign UP"}
             </button>
           </div>
+          <p
+            onClick={() => setIsLogIn((prev) => !prev)}
+            className="text-center mt-3 cursor-pointer pointer-coarse:text-red-500"
+          >
+            {isLogIn ? "New User ? Signup Here" : "Existing User ? Login Here"}
+          </p>
         </div>
       </div>
     </div>
