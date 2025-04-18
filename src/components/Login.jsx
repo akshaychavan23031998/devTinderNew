@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("akshay@gmail.com");
-  const [password, setPassword] = useState("akshay15#OR");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [emailId, setEmailId] = useState();
+  const [password, setPassword] = useState();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
 
   const [isLogIn, setIsLogIn] = useState(true);
 
@@ -17,6 +17,26 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleSignUp =async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data));
+      navigate("/feed");
+    } catch (error) {
+      console.error("Login error:", error.response?.data || error.message);
+
+      if (error.response && error.response.status === 401) {
+        setErrorMsg(error.response.data);
+      } else {
+        setErrorMsg("Something went wrong. Please try again.");
+      }
+    }
+  };
 
   const handleLogin = async () => {
     setErrorMsg(""); // Clear previous error
@@ -62,6 +82,7 @@ const Login = () => {
                 <input
                   type="text"
                   value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)} 
                   className="input"
                   placeholder="Enter You First Name"
                 />
@@ -72,6 +93,7 @@ const Login = () => {
                 <input
                   type="text"
                   value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="input"
                   placeholder="Enter You Last Name"
                 />
@@ -144,7 +166,10 @@ const Login = () => {
 
           {/* Button */}
           <div className="card-actions justify-center mt-3">
-            <button className="btn btn-primary w-full" onClick={handleLogin}>
+            <button
+              className="btn btn-primary w-full"
+              onClick={isLogIn ? handleLogin : handleSignUp}
+            >
               {isLogIn ? "Login" : "Sign UP"}
             </button>
           </div>

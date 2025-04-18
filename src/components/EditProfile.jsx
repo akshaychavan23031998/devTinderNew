@@ -5,15 +5,16 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
-const fallbackImg = "https://cdn-icons-png.flaticon.com/512/149/149071.png"; // default avatar
+// const fallbackImg = "https://cdn-icons-png.flaticon.com/512/149/149071.png"; // default avatar
+const defaultPhoto = "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"  // ==>> we will use this image.
 
 const EditProfile = ({ user }) => {
   const [name, setName] = useState(user.firstName);
-  const [photo, setPhoto] = useState(user.photo);
+  const [photo, setPhoto] = useState(user.photo || defaultPhoto);
   const [lastname, setLastname] = useState(user.lastName);
-  const [bio, setBio] = useState(user.about);
+  const [bio, setBio] = useState(user.about || "");
   const [errorMsg, setErrorMsg] = useState("");
-  const [imgSrc, setImgSrc] = useState(user.photo); // for handling fallback
+  const [imgSrc, setImgSrc] = useState(user.photo || defaultPhoto); // for handling fallback
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
 
